@@ -4,9 +4,24 @@ SvelteKit + Laravel v11 Breeze (API) combined within a DDEV project.
 - fork of https://github.com/lindgr3n/breeze-sveltekit
 - 
 
+Frontend: https://frontend-breeze-sveltekit.ddev.site;
+Backend: https://ddev-laravel-breeze-sveltekit.ddev.site/
+
 ## Local setup
 
 
+```bash
+cd frontend
+ddev npm install
+
+ddev npm run dev
+```
+
+Open https://frontend-breeze-sveltekit.ddev.site.ddev.site/, happy development!
+
+## Deployment
+
+This setup should be easily self-hostable via Coolify (or other tools like CapRover, ploi.io, Laravel Forge, etc.). See this guide for example: [Deploy Node.js applications on a VPS using Coolify](https://sreyaj.dev/deploy-nodejs-applications-on-a-vps-using-coolify). 
 
 ## How was this created?
 
@@ -43,3 +58,48 @@ ddev npm install
 
 3. Add nginx reverse proxy for SvelteKit
 
+Created `.ddev/nginx_full/frontend.conf` with:
+
+```
+server {
+
+  # server_name frontend.ddev-laravel-breeze-sveltekit.ddev.site;
+  # fails with nginx: [emerg] could not build server_names_hash, you should increase server_names_hash_bucket_size: 64
+  # shortened it for now:
+  server_name frontend-breeze-sveltekit.ddev.site;
+
+  location / {
+    proxy_pass http://localhost:5173;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+  }
+
+  listen 80;
+  listen 443 ssl;
+
+  ssl_certificate /etc/ssl/certs/master.crt;
+  ssl_certificate_key /etc/ssl/certs/master.key;
+
+  include /etc/nginx/monitoring.conf;
+
+  error_log /dev/stdout info;
+  access_log /var/log/nginx/access.log;
+
+  include /etc/nginx/common.d/*.conf;
+  include /mnt/ddev_config/nginx/*.conf;
+}
+```
+
+And added 
+
+```yaml
+additional_hostnames: 
+  - frontend-breeze-sveltekit
+```
+
+to `.ddev/config.yaml`. 
+
+Both changes `ddev restart` afterwards.
