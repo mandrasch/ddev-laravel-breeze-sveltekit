@@ -1,14 +1,13 @@
 # ddev-laravel-breeze-sveltekit
 
-SvelteKit + Laravel Breeze (API-only) combined within a DDEV project.
+Monorepo for SvelteKit + Laravel Breeze with API-only stack, runs via [DDEV](https://ddev.com).
 
-⚠️ Use with caution / no warranty for production. This is an experiment / prototype ⚠️
-
-- Fork of https://github.com/lindgr3n/breeze-sveltekit
-- 
+Fork of [lindgr3n/breeze-sveltekit](https://github.com/lindgr3n/breeze-sveltekit).
 
 Frontend: https://frontend-breeze-sveltekit.ddev.site;
 Backend: https://ddev-laravel-breeze-sveltekit.ddev.site/
+
+⚠️ Use with caution / no warranty. This is an experiment / prototype, check security for ⚠️
 
 ## Local setup
 
@@ -22,6 +21,11 @@ ddev artisan key:generate
 
 cd frontend
 ddev npm install
+
+ddev ssh
+cd frontend/
+cp .env.example .env
+exit
 ```
 
 After first install:
@@ -33,9 +37,14 @@ ddev npm run dev
 
 Open https://frontend-breeze-sveltekit.ddev.site.ddev.site/, happy development!
 
+## Troubleshooting
+
+-   Check `FRONTEND_URL` in `.env` + origin for Vite in frontend/ needs to be correct for API auth, otherwise there will be "CATCHED USER ERROR Unauthorized" errors
+-   Always use `ddev npm ...` - never run `npm ...` only on host computer - make sure you're in `frontend/`
+
 ## Deployment
 
-This setup should be easily self-hostable via Coolify (or other tools like CapRover, ploi.io, Laravel Forge, etc.). See this guide for example: [Deploy Node.js applications on a VPS using Coolify](https://sreyaj.dev/deploy-nodejs-applications-on-a-vps-using-coolify). 
+This setup should be easily self-hostable via Coolify (or other tools like CapRover, ploi.io, Laravel Forge, etc.). See this guide for example: [Deploy Node.js applications on a VPS using Coolify](https://sreyaj.dev/deploy-nodejs-applications-on-a-vps-using-coolify).
 
 ## How was this created?
 
@@ -57,7 +66,6 @@ ddev composer require laravel/breeze --dev
 # - Select 'yes' for "run pending migrations?" (!)
 ddev artisan breeze:install
 ```
-
 
 2. Install SvelteKit
 
@@ -107,14 +115,16 @@ server {
 }
 ```
 
-And added 
+Thanks to Andy Blum for https://www.lullabot.com/articles/nodejs-development-ddev.
+
+Also added
 
 ```yaml
-additional_hostnames: 
-  - frontend-breeze-sveltekit
+additional_hostnames:
+    - frontend-breeze-sveltekit
 ```
 
-to `.ddev/config.yaml`. 
+to `.ddev/config.yaml`.
 
 Both changes `ddev restart` afterwards.
 
@@ -144,4 +154,9 @@ ddev npm install -D sass
 
 See https://tailwindcss.com/docs/guides/sveltekit for all steps.
 
+6. Add cookie
 
+```bash
+cd frontend
+ddev npm install cookie
+```

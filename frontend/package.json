@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "vite dev",
+		"dev": "NODE_ENV=development vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
@@ -37,6 +37,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"axios": "^1.6.8"
+		"axios": "^1.6.8",
+		"cookie": "^0.6.0"
 	}
 }

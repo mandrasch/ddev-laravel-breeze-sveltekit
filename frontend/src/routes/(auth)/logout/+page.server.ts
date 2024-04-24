@@ -30,9 +30,17 @@ async function logoutAction(event: ServerLoadEvent | RequestEvent) {
 	}).catch(() => {
 		//
 	});
-	event.cookies.delete('XSRF-TOKEN');
-	event.cookies.delete('laravel_session');
-	event.cookies.delete('laravel_session');
+
+	// TODO: added path after error "Error: You must specify a `path` when setting, deleting or serializing cookies" - correct to use '/'?
+	event.cookies.delete('XSRF-TOKEN', {
+		path: '/'
+	});
+	event.cookies.delete('laravel_session', {
+		path: '/'
+	});
+	event.cookies.delete('laravel_session', {
+		path: '/'
+	});
 	event.locals.user = null;
 
 	throw redirect(307, '/login');
