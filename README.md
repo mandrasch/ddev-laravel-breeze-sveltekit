@@ -1,7 +1,10 @@
+# ddev-laravel-breeze-sveltekit
 
-SvelteKit + Laravel v11 Breeze (API) combined within a DDEV project.
+SvelteKit + Laravel Breeze (API-only) combined within a DDEV project.
 
-- fork of https://github.com/lindgr3n/breeze-sveltekit
+⚠️ Use with caution / no warranty for production. This is an experiment / prototype ⚠️
+
+- Fork of https://github.com/lindgr3n/breeze-sveltekit
 - 
 
 Frontend: https://frontend-breeze-sveltekit.ddev.site;
@@ -9,11 +12,22 @@ Backend: https://ddev-laravel-breeze-sveltekit.ddev.site/
 
 ## Local setup
 
+First time setup steps:
+
+```bash
+ddev start
+ddev composer install
+ddev exec "cp .env.example .env"
+ddev artisan key:generate
+
+cd frontend
+ddev npm install
+```
+
+After first install:
 
 ```bash
 cd frontend
-ddev npm install
-
 ddev npm run dev
 ```
 
@@ -103,3 +117,31 @@ additional_hostnames:
 to `.ddev/config.yaml`. 
 
 Both changes `ddev restart` afterwards.
+
+4. Forked [lindgr3n/breeze-sveltekit](https://github.com/lindgr3n/breeze-sveltekit)
+
+Copy routes, lib/, app.d.ts and styles from [lindgr3n/breeze-sveltekit](https://github.com/lindgr3n/breeze-sveltekit) and install deps:
+
+```bash
+cd frontend/
+ddev npm i axios
+ddev npm i -D typescript
+```
+
+5. Added tailwind
+
+```bash
+cd frontend
+ddev npm install -D tailwindcss postcss autoprefixer
+
+ddev ssh
+cd frontend
+npx tailwindcss init -p
+exit
+
+ddev npm install -D sass
+```
+
+See https://tailwindcss.com/docs/guides/sveltekit for all steps.
+
+
