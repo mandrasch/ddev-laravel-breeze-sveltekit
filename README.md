@@ -39,12 +39,14 @@ Open https://frontend-breeze-sveltekit.ddev.site.ddev.site/, happy development!
 
 ## Troubleshooting
 
--   Check `FRONTEND_URL` in `.env` + origin for Vite in frontend/ needs to be correct for API auth, otherwise there will be "CATCHED USER ERROR Unauthorized" errors
+-   Check `FRONTEND_URL` in `.env` (see usage in config/sanctum.php) + origin for Vite in frontend/ needs to be correct for API auth, otherwise there will be "CATCHED USER ERROR Unauthorized" errors
 -   Always use `ddev npm ...` - never run `npm ...` only on host computer - make sure you're in `frontend/`
 
 ## Deployment
 
 This setup should be easily self-hostable via Coolify (or other tools like CapRover, ploi.io, Laravel Forge, etc.). See this guide for example: [Deploy Node.js applications on a VPS using Coolify](https://sreyaj.dev/deploy-nodejs-applications-on-a-vps-using-coolify).
+
+-   [ ] Add tutorial for example .env values --> is ORIGIN & CSRF okay on production/live?
 
 ## How was this created?
 
