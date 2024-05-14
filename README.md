@@ -1,6 +1,6 @@
 # ddev-laravel-breeze-sveltekit
 
-Monorepo for SvelteKit (NodeJS) + Laravel Breeze (PHP) with API-only stack, both within [DDEV](https://ddev.com).
+Monorepo for Laravel Breeze with API-only stack (PHP) + SvelteKit (NodeJS), both within [DDEV](https://ddev.com).
 
 Fork of [lindgr3n/breeze-sveltekit](https://github.com/lindgr3n/breeze-sveltekit).
 
