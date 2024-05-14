@@ -7,7 +7,7 @@ Fork of [lindgr3n/breeze-sveltekit](https://github.com/lindgr3n/breeze-sveltekit
 - Frontend: https://frontend-breeze-sveltekit.ddev.site/ (`frontend/`-folder)
 - Backend: https://ddev-laravel-breeze-sveltekit.ddev.site/
 
-Trick is the nginx conf in `.ddev/` and additional hostname in `.ddev/config.yaml`, based on https://www.lullabot.com/articles/nodejs-development-ddev. 
+Trick is the nginx conf in `.ddev/nginx_full/frontend.conf` and additional hostname in `.ddev/config.yaml`, based on https://www.lullabot.com/articles/nodejs-development-ddev. 
 
 ⚠️ Use with caution / no warranty. This is an experiment / prototype, check security for ⚠️
 
