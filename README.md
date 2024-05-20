@@ -4,10 +4,10 @@ Monorepo for Laravel Breeze with API-only stack (PHP) + SvelteKit (NodeJS), both
 
 Fork of [lindgr3n/breeze-sveltekit](https://github.com/lindgr3n/breeze-sveltekit).
 
-- Frontend: https://frontend-breeze-sveltekit.ddev.site/ (`frontend/`-folder)
-- Backend: https://ddev-laravel-breeze-sveltekit.ddev.site/
+-   Frontend: https://frontend.ddev-laravel-breeze-sveltekit.ddev.site/ (`frontend/`-folder)
+-   Backend: https://ddev-laravel-breeze-sveltekit.ddev.site/
 
-Trick is the nginx conf in `.ddev/nginx_full/frontend.conf` and additional hostname in `.ddev/config.yaml`, based on https://www.lullabot.com/articles/nodejs-development-ddev. 
+Trick is the nginx conf in `.ddev/nginx_full/frontend.conf` and additional hostname in `.ddev/config.yaml`, based on https://www.lullabot.com/articles/nodejs-development-ddev.
 
 ⚠️ Use with caution / no warranty. This is an experiment / prototype, check security before using this on production ⚠️
 
@@ -18,8 +18,8 @@ First time setup steps:
 ```bash
 ddev start
 ddev composer install
-ddev exec "cp .env.example .env"
 ddev artisan key:generate
+ddev artisan migrate
 
 cd frontend
 ddev npm install
@@ -87,12 +87,13 @@ ddev npm install
 Created `.ddev/nginx_full/frontend.conf` with:
 
 ```
+# important, otherwise nginx fails with "[emerg] could not build server_names_hash,
+# you should increase server_names_hash_bucket_size: 64"
+server_names_hash_bucket_size 128;
+
 server {
 
-  # server_name frontend.ddev-laravel-breeze-sveltekit.ddev.site;
-  # fails with nginx: [emerg] could not build server_names_hash, you should increase server_names_hash_bucket_size: 64
-  # shortened it for now:
-  server_name frontend-breeze-sveltekit.ddev.site;
+  server_name frontend.ddev-laravel-breeze-sveltekit.ddev.site;
 
   location / {
     proxy_pass http://localhost:5173;
@@ -125,7 +126,7 @@ Also added
 
 ```yaml
 additional_hostnames:
-    - frontend-breeze-sveltekit
+    - frontend.ddev-laravel-breeze-sveltekit
 ```
 
 to `.ddev/config.yaml`.
